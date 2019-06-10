@@ -1,3 +1,7 @@
+
+#公共模块
+
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -267,6 +271,16 @@ def init_db(db_session):
     SystemPar.delete_all(db_session)
     #基础数据
     systemPar=SystemPar(par_code='version',par_desc='版本信息',par_value='1.0',par_type=2)
+    db_session.add(systemPar)
+    systemPar=SystemPar(par_code='import_polling_second',par_desc='数据导入客户端轮询间隔秒数',par_value='60',par_type=1)
+    db_session.add(systemPar)
+    systemPar=SystemPar(par_code='import_neo4j_install_dir',par_desc='数据导入NEO4J安装目录',par_value='D:\\software\\neo4j-enterprise-3.5.6\\',par_type=2)
+    db_session.add(systemPar)
+    systemPar=SystemPar(par_code='neo4j_status',par_desc='NEO4J状态',par_value='未知',par_type=2)#可以为未知、启动中，运行中、关闭中，已关闭
+    db_session.add(systemPar)
+    systemPar=SystemPar(par_code='import_status',par_desc='导入状态',par_value='空闲',par_type=2)#空闲、导入中
+    db_session.add(systemPar)
+    systemPar=SystemPar(par_code='neo4j_last_import_datetime',par_desc='NEO4J数据最后更新时间',par_value='2019-06-07 12:44:44.0000',par_type=4)
     db_session.add(systemPar)
     SystemCode.delete_all(db_session)
     systemCode=SystemCode(code_main='currency',code_desc='货币',code_code='CNY',code_value='人民币元',code_type=2)
