@@ -9,7 +9,7 @@ from sqlalchemy import Column,Integer,String,ForeignKey,DateTime,Numeric,Float,T
 import datetime
 import uuid
 import json
-from common import DateTimeEncoder
+from python_common.common import DateTimeEncoder
 
 
 postgresql_conn_str="postgresql+psycopg2://postgres:Wang1980@localhost:33133/test"
@@ -17,6 +17,47 @@ engine=create_engine(postgresql_conn_str)
 Base = declarative_base()
 
 
+
+
+
+class Queue(Base):
+    __tablename__="queue"
+    u_uuid = Column(String(37),primary_key=True)
+    u_declare_key = Column(String(256))
+    u_body=Column(Text)
+    u_publisher_id=Column(String(256))
+    u_publish_datetime=DateTime
+    u_no_ack=Boolean#为True的情况，消息一旦接受就认为结束，为False的情况消息需要客户端确认处理完成才结束。
+    u_start_datetime=DateTime#开始处理时间
+    u_complete_datetime=DateTime#结束处理时间
+    u_status=Column(String(16))#发布，处理中，处理完成
+
+    
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(Queue).all().delete()
+    
+    def __repr__(self):
+        return self.u_uuid+self.u_declare_key+self.u_body
+    
+    def to_json(self):
+        json_string={
+            'u_uuid':self.u_uuid,
+            'u_declare_key':self.u_declare_key,
+            'u_body':self.u_body,
+            'u_publish_datetime':json.dumps(self.u_publish_datetime,cls=DateTimeEncoder),
+            'u_no_ack':self.u_no_ack,
+            'u_publisher_id':self.u_publisher_id,
+            'u_complete_date':json.dumps(self.u_complete_datetime,cls=DateTimeEncoder),
+            'u_status':self.u_status,
+            'u_start_datetime':json.dumps(self.u_start_datetime,cls=DateTimeEncoder),
+
+
+            
+
+        }
+        return json_string
 
 
 
