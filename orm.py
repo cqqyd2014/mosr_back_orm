@@ -17,13 +17,59 @@ engine=create_engine(postgresql_conn_str)
 Base = declarative_base()
 
 
+#当前数据
+class ImportData(Base):
+    __tablename__="import_data"
+    u_uuid = Column(String(37),primary_key=True)
+    u_create_datetime = DateTime
+    u_queue_uuid=Column(String(37))
+    u_start_download_datetime=DateTime
+    u_end_download_datetime=DateTime
+    u_start_import_datetime=DateTime
+    u_end_import_datetime=DateTime
+    u_node_edge=Column(String(64))
+    u_label_items=Column(Text)
+    u_edge_type=Column(Text)
+    u_column_items=(Text)
+    u_status=Column(String(64))#创建任务，开始下载，下载完成，开始导入，导入完成
+    
+
+    
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(ImportData).all().delete()
+    
+    def __repr__(self):
+        return self.u_uuid+self.u_declare_key+self.u_body
+    
+    def to_json(self):
+        json_string={
+            'u_uuid':self.u_uuid,
+            'u_create_datetime':json.dumps(self.u_create_datetime,cls=DateTimeEncoder),
+            'u_queue_uuid':self.u_queue_uuid,
+            'u_start_download_datetime':json.dumps(self.u_start_download_datetime,cls=DateTimeEncoder),
+            'u_end_download_datetime':json.dumps(self.u_end_download_datetime,cls=DateTimeEncoder),
+            'u_start_import_datetime':json.dumps(self.u_start_import_datetime,cls=DateTimeEncoder),
+            'u_end_import_datetime':json.dumps(self.u_end_import_datetime,cls=DateTimeEncoder),
+            'u_node_edge':self.u_node_edge,
+            'u_label_items':self.u_label_items,
+            'u_edge_type':self.u_edge_type,
+            'u_column_items':self.u_column_items,
+            'u_status':self.u_status,
 
 
+            
 
+        }
+        return json_string
+
+
+#任务列表
 class Queue(Base):
     __tablename__="queue"
     u_uuid = Column(String(37),primary_key=True)
-    u_declare_key = Column(String(256))
+    u_declare_key = Column(String(256))#download_data从远程数据库下载数据
     u_body=Column(Text)
     u_publisher_id=Column(String(256))
     u_publish_datetime=DateTime
