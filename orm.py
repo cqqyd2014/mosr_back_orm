@@ -35,7 +35,7 @@ class ImportData(Base):
     u_edge_type = Column(Text)
     u_column_items = Column(Text)
     u_status = Column(String(64))  # 创建任务，开始下载，下载完成，开始导入，导入完成
-    u_rowcount=Integer
+    u_rowcount=Column(Integer)
 
     @staticmethod
     def delete_all(db_session):
