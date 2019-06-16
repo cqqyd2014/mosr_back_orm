@@ -35,6 +35,7 @@ class ImportData(Base):
     u_edge_type = Column(Text)
     u_column_items = Column(Text)
     u_status = Column(String(64))  # 创建任务，开始下载，下载完成，开始导入，导入完成
+    u_rowcount=Integer
 
     @staticmethod
     def delete_all(db_session):
@@ -57,6 +58,7 @@ class ImportData(Base):
             'u_edge_type': self.u_edge_type,
             'u_column_items': self.u_column_items,
             'u_status': self.u_status,
+            'u_rowcount':self.u_rowcount,
 
 
 
@@ -360,7 +362,13 @@ def init_db(db_session):
                           par_desc='Queue轮询间隔秒数', par_value='60', par_type=1)
     db_session.add(systemPar)
     systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
-                          par_value='D:\\software\\neo4j-enterprise-3.5.6\\', par_type=2)
+                          par_value='D:/software/neo4j-enterprise-3.5.6/', par_type=2)
+    db_session.add(systemPar)
+    systemPar = SystemPar(par_code='download_batch', par_desc='从远程服务器下载数据的批量',
+                          par_value='10000', par_type=1)
+    db_session.add(systemPar)
+    systemPar = SystemPar(par_code='csv_batch', par_desc='读取和写入csv的批量',
+                          par_value='10000', par_type=1)
     db_session.add(systemPar)
     systemPar = SystemPar(par_code='neo4j_status', par_desc='NEO4J状态',
                           par_value='未知', par_type=2)  # 可以为未知、启动中，运行中、关闭中，已关闭
