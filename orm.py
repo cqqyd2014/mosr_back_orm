@@ -20,7 +20,82 @@ engine = create_engine(postgresql_conn_str)
 Base = declarative_base()
 
 
-# 当前数据
+#当前系统中的节点标签
+class CurrentNodeLabels(Base):
+    __tablename__ = "current_noode_labels"
+    labels = Column(String(1024), primary_key=True)
+    label = Column(String(1024), primary_key=True)
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(CurrentNodeLabels).filter(
+            CurrentNodeLabels.labels == self.labels, CurrentNodeLabels.label == self.label).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            pass
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(CurrentNodeLabels).all().delete()
+
+    def __repr__(self):
+        return self.labels+self.label
+
+
+#当前系统中的关系类型
+class CurrentEdgeTyps(Base):
+    __tablename__ = "current_edge_types"
+    edge_type = Column(String(1024), primary_key=True)
+    
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(CurrentEdgeTyps).filter(
+            CurrentEdgeTyps.edge_type == self.edge_type).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            pass
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(CurrentEdgeTyps).all().delete()
+
+    def __repr__(self):
+        return self.edge_type
+
+#当前系统中的属性
+class CurrentProperties(Base):
+    __tablename__ = "current_properties"
+    u_uuid=Column(String(37), primary_key=True)
+    u_type = Column(String(32))
+    u_label_type=Column(String(512))
+    u_column_name=Column(String(512))
+    u_column_type=Column(String(512))
+    
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(CurrentProperties).filter(
+            CurrentProperties.u_uuid == self.u_uuid).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            pass
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(CurrentProperties).all().delete()
+
+    def __repr__(self):
+        return self.u_uuid
+
+
+# 当前等待导入的数据
 class ImportData(Base):
     __tablename__ = "import_data"
     u_uuid = Column(String(37), primary_key=True)
@@ -369,6 +444,12 @@ def init_db(db_session):
     # 基础数据
     systemPar = SystemPar(par_code='version',
                           par_desc='版本信息', par_value='1.0', par_type=2)
+    db_session.add(systemPar)
+    systemPar = SystemPar(par_code='node_count',
+                          par_desc='节点数量', par_value='0', par_type=1)
+    db_session.add(systemPar)
+    systemPar = SystemPar(par_code='edge_count',
+                          par_desc='关系数量', par_value='0', par_type=1)
     db_session.add(systemPar)
     systemPar = SystemPar(par_code='polling_second',
                           par_desc='Queue轮询间隔秒数', par_value='60', par_type=1)
