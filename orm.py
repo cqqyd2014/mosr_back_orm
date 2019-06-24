@@ -65,6 +65,8 @@ class CurrentEdgeTyps(Base):
     @staticmethod
     def delete_all(db_session):
         db_data = db_session.query(CurrentEdgeTyps)
+        print("dbdata")
+        print(db_data)
         for item in db_data:
             db_session.delete(item)
         
