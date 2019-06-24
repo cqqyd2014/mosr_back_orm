@@ -63,6 +63,8 @@ class CurrentEdgeTyps(Base):
     @staticmethod
     def delete_all(db_session):
         db_session.query(CurrentEdgeTyps).delete()
+        
+
 
     def __repr__(self):
         return self.edge_type
