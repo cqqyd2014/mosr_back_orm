@@ -40,6 +40,7 @@ class CurrentNodeLabels(Base):
     @staticmethod
     def delete_all(db_session):
         db_session.query(CurrentNodeLabels).delete()
+        print("删除成功")
 
 
     def __repr__(self):
