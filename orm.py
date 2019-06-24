@@ -38,7 +38,7 @@ class CurrentNodeLabels(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(CurrentNodeLabels).all().delete()
+        db_session.query(CurrentNodeLabels).delete()
 
     def __repr__(self):
         return self.labels+self.label
@@ -62,7 +62,7 @@ class CurrentEdgeTyps(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(CurrentEdgeTyps).all().delete()
+        db_session.query(CurrentEdgeTyps).delete()
 
     def __repr__(self):
         return self.edge_type
@@ -89,7 +89,7 @@ class CurrentProperties(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(CurrentProperties).all().delete()
+        db_session.query(CurrentProperties).delete()
 
     def __repr__(self):
         return self.u_uuid
@@ -126,7 +126,7 @@ class ImportData(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(ImportData).all().delete()
+        db_session.query(ImportData).delete()
 
     def __repr__(self):
         return self.u_uuid+self.u_declare_key+self.u_body
@@ -169,7 +169,7 @@ class JobQueue(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(JobQueue).all().delete()
+        db_session.query(JobQueue).delete()
 
     def __repr__(self):
         return self.u_uuid+self.u_declare_key+self.u_body
@@ -200,7 +200,7 @@ class SystemDataCorp(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(SystemDataCorp).all().delete()
+        db_session.query(SystemDataCorp).delete()
 
     def __repr__(self):
         return self.corp_name
@@ -228,7 +228,7 @@ class SystemData(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(SystemData).all().delete()
+        db_session.query(SystemData).delete()
 
     def __repr__(self):
         return self.sys_name
@@ -295,7 +295,7 @@ class NodeLabelColor(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(NodeLabelColor).all().delete()
+        db_session.query(NodeLabelColor).delete()
 
     def saveOfUpdate(self, session):
         db_data = session.query(NodeLabelColor).filter(
@@ -410,7 +410,7 @@ class ProcessDetail(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_session.query(ProcessDetail).all().delete()
+        db_session.query(ProcessDetail).delete()
 
     def saveOfUpdate(self, session):
         db_data = session.query(ProcessDetail).filter(
