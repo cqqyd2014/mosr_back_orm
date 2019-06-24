@@ -40,11 +40,21 @@ class CurrentNodeLabels(Base):
     @staticmethod
     def delete_all(db_session):
         db_session.query(CurrentNodeLabels).delete()
-        print("删除成功")
+        #print("删除成功")
 
 
     def __repr__(self):
         return self.labels+self.label
+
+    def to_json(self):
+        json_string = {
+            'labels': self.labels,
+            'label': self.label,
+            'create_datetime': json.dumps(self.create_datetime, cls=DateTimeEncoder),
+            
+
+        }
+        return json_string
 
 
 #当前系统中的关系类型
@@ -76,6 +86,15 @@ class CurrentEdgeTyps(Base):
     def __repr__(self):
         return self.edge_type
 
+    def to_json(self):
+        json_string = {
+            'edge_type': self.edge_type,
+            'create_datetime': json.dumps(self.create_datetime, cls=DateTimeEncoder),
+            
+
+        }
+        return json_string
+
 #当前系统中的属性
 class CurrentProperties(Base):
     __tablename__ = "current_properties"
@@ -104,6 +123,20 @@ class CurrentProperties(Base):
 
     def __repr__(self):
         return self.u_uuid
+    
+    def to_json(self):
+        json_string = {
+            'u_uuid': self.u_uuid,
+            'u_type': self.u_type,
+            'u_label_type': self.u_label_type,
+            'u_column_name': self.u_column_name,
+            'u_column_type': self.u_column_type,
+            'create_datetime': json.dumps(self.create_datetime, cls=DateTimeEncoder),
+            
+
+        }
+        return json_string
+
 
 
 # 当前等待导入的数据
