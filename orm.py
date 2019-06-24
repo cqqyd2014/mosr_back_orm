@@ -50,6 +50,9 @@ class CurrentNodeLabels(Base):
 class CurrentEdgeTyps(Base):
     __tablename__ = "current_edge_types"
     edge_type = Column(String(1024), primary_key=True)
+
+    def __hash__(self):
+        return hash(self.edge_type)
     
     
 
