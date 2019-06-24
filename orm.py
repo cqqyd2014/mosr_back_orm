@@ -25,6 +25,7 @@ class CurrentNodeLabels(Base):
     __tablename__ = "current_noode_labels"
     labels = Column(String(1024), primary_key=True)
     label = Column(String(1024), primary_key=True)
+    create_datetime=Column(DateTime)
     
 
     @staticmethod
@@ -38,9 +39,8 @@ class CurrentNodeLabels(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_data = db_session.query(CurrentNodeLabels).all()
-        for item in db_data:
-            db_session.delete(item)
+        db_session.query(CurrentNodeLabels).all().delete()
+
 
     def __repr__(self):
         return self.labels+self.label
@@ -50,9 +50,9 @@ class CurrentNodeLabels(Base):
 class CurrentEdgeTyps(Base):
     __tablename__ = "current_edge_types"
     edge_type = Column(String(1024), primary_key=True)
+    create_datetime=Column(DateTime)
 
-    def __hash__(self):
-        return hash(self.edge_type)
+
     
     
 
@@ -67,11 +67,8 @@ class CurrentEdgeTyps(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_data = db_session.query(CurrentEdgeTyps).all()
-        print("dbdata")
-        print(db_data)
-        for item in db_data:
-            db_session.delete(item)
+        db_session.query(CurrentEdgeTyps).all().delete()
+
         
 
 
@@ -86,6 +83,7 @@ class CurrentProperties(Base):
     u_label_type=Column(String(512))
     u_column_name=Column(String(512))
     u_column_type=Column(String(512))
+    create_datetime=Column(DateTime)
     
     
 
@@ -100,9 +98,8 @@ class CurrentProperties(Base):
 
     @staticmethod
     def delete_all(db_session):
-        db_data = db_session.query(CurrentProperties).all()
-        for item in db_data:
-            db_session.delete(item)
+        db_session.query(CurrentProperties).all().delete()
+
 
     def __repr__(self):
         return self.u_uuid
