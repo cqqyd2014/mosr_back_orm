@@ -22,7 +22,7 @@ Base = declarative_base()
 
 #当前系统中的节点标签
 class CurrentNodeLabels(Base):
-    __tablename__ = "current_noode_labels"
+    __tablename__ = "current_node_labels"
     labels = Column(String(1024), primary_key=True)
     label = Column(String(1024), primary_key=True)
     create_datetime=Column(DateTime)
