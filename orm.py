@@ -13,7 +13,7 @@ from python_common.common import DateTimeEncoder
 
 
 postgresql_conn_str = "postgresql+psycopg2://postgres:Wang1980@localhost:33133/test"
-engine = create_engine(postgresql_conn_str)
+engine = create_engine(postgresql_conn_str, isolation_level = 'AUTOCOMMIT')
 
 # mysql_conn_str='mysql+mysqldb://root:Wang1980@localhost:3306/mosr?charset=utf8mb4'
 # engine=create_engine(mysql_conn_str)
