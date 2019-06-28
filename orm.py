@@ -1,7 +1,7 @@
 
 # 公共模块
 
-
+import platform
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -485,6 +485,11 @@ def init_db(db_session):
     db_session.commit()
     SystemPar.delete_all(db_session)
     db_session.commit()
+    system_type=''
+    if platform.platform().find('Windows')>=0:
+        system_type='Windows'
+    else:
+        system_type='UNIX'
     # 基础数据
     systemPar = SystemPar(par_code='version',
                           par_desc='版本信息', par_value='1.0', par_type=2)
@@ -498,9 +503,14 @@ def init_db(db_session):
     systemPar = SystemPar(par_code='polling_second',
                           par_desc='Queue轮询间隔秒数', par_value='60', par_type=1)
     db_session.add(systemPar)
-    systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
+    if system_type=='UNIX':
+        systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
                           par_value='/u01/cqaudit/software/neo4j-enterprise-3.5.6/', par_type=2)
-    db_session.add(systemPar)
+        db_session.add(systemPar)
+    else:
+        systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
+                          par_value='D:/software/neo4j-enterprise-3.5.6/', par_type=2)
+        db_session.add(systemPar)
     systemPar = SystemPar(par_code='download_batch', par_desc='从远程服务器下载数据的批量',
                           par_value='10000', par_type=1)
     db_session.add(systemPar)
