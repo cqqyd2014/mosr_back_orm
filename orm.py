@@ -210,6 +210,7 @@ class JobQueue(Base):
     u_start_datetime = Column(DateTime)  # 开始处理时间
     u_complete_datetime = Column(DateTime)  # 结束处理时间
     u_status = Column(String(16))  # 发布，处理中，处理完成
+    u_back_message=Column(Text)
 
     @staticmethod
     def delete_all(db_session):
@@ -229,6 +230,7 @@ class JobQueue(Base):
             'u_complete_date': json.dumps(self.u_complete_datetime, cls=DateTimeEncoder),
             'u_status': self.u_status,
             'u_start_datetime': json.dumps(self.u_start_datetime, cls=DateTimeEncoder),
+            'u_back_message':self.u_back_message
 
 
 
