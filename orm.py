@@ -138,6 +138,125 @@ class CurrentProperties(Base):
         return json_string
 
 
+#Connected Components algorithm算法的结果
+
+class AlgorithmRsCCM(Base):
+    __tablename__ = "algorithm_rs_connected_components_m"
+    u_uuid = Column(String(37), primary_key=True)
+    u_create_datetime = Column(DateTime)
+    u_queue_string = Column(String(1024))
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(AlgorithmRsCCM).filter(
+            AlgorithmRsCCM.u_uuid == self.u_uuid).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            db_data.u_create_datetime = self.u_create_datetime
+            db_data.u_queue_string = self.u_queue_string
+            
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(AlgorithmRsCCM).delete()
+
+    def __repr__(self):
+        return self.u_uuid
+
+    def to_json(self):
+        json_string = {
+            'u_uuid': self.u_uuid,
+            'u_create_datetime': json.dumps(self.u_create_datetime, cls=DateTimeEncoder),
+            'u_queue_string': self.u_queue_string,
+            
+
+
+
+
+        }
+        return json_string
+
+class AlgorithmRsCCD(Base):
+    __tablename__ = "algorithm_rs_connected_components_d"
+    u_uuid = Column(String(37), primary_key=True)
+    u_setId	 = Column(Integer, primary_key=True)
+    
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(AlgorithmRsCCD).filter(
+            AlgorithmRsCCD.u_uuid == self.u_uuid,AlgorithmRsCCD.u_setId==self.u_setId).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            pass
+           
+            
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(AlgorithmRsCCD).delete()
+
+    def __repr__(self):
+        return self.u_uuid
+
+    def to_json(self):
+        json_string = {
+            'u_uuid': self.u_uuid,
+            
+            'u_setId': self.u_setId,
+            
+
+
+
+
+        }
+        return json_string
+
+#每组的明细
+class AlgorithmRsCCDD(Base):
+    __tablename__ = "algorithm_rs_connected_components_dd"
+    u_uuid = Column(String(37), primary_key=True)
+    u_setId	 = Column(Integer, primary_key=True)
+    u_nodeId = Column(Integer, primary_key=True)
+    
+    
+
+    @staticmethod
+    def saveOfUpdate(self, session):
+        db_data = session.query(AlgorithmRsCCDD).filter(
+            AlgorithmRsCCDD.u_uuid == self.u_uuid,AlgorithmRsCCDD.u_setId==self.u_setId,AlgorithmRsCCDD.u_nodeId==self.u_nodeId).one_or_none()
+        if db_data == None:
+            session.add(self)
+        else:
+            pass
+           
+            
+
+    @staticmethod
+    def delete_all(db_session):
+        db_session.query(AlgorithmRsCCDD).delete()
+
+    def __repr__(self):
+        return self.u_uuid
+
+    def to_json(self):
+        json_string = {
+            'u_uuid': self.u_uuid,
+            'u_nodeId':self.u_nodeId,
+            'u_setId': self.u_setId,
+            
+
+
+
+
+        }
+        return json_string
+
+
 
 # 当前等待导入的数据
 class ImportData(Base):
