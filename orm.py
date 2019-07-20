@@ -182,6 +182,7 @@ class AlgorithmRsCCD(Base):
     __tablename__ = "algorithm_rs_connected_components_d"
     u_uuid = Column(String(37), primary_key=True)
     u_setId	 = Column(Integer, primary_key=True)
+    u_size=Column(Integer)
     
     
 
@@ -206,7 +207,7 @@ class AlgorithmRsCCD(Base):
     def to_json(self):
         json_string = {
             'u_uuid': self.u_uuid,
-            
+            'u_size':self.u_size,
             'u_setId': self.u_setId,
             
 
