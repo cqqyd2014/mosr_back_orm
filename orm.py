@@ -145,6 +145,7 @@ class AlgorithmRsCCM(Base):
     u_uuid = Column(String(37), primary_key=True)
     u_create_datetime = Column(DateTime)
     u_queue_string = Column(String(1024))
+    u_set_size=Column(Integer)
     
 
     @staticmethod
@@ -156,6 +157,7 @@ class AlgorithmRsCCM(Base):
         else:
             db_data.u_create_datetime = self.u_create_datetime
             db_data.u_queue_string = self.u_queue_string
+            db_data.u_set_size=self.u_set_size
             
 
     @staticmethod
@@ -170,6 +172,7 @@ class AlgorithmRsCCM(Base):
             'u_uuid': self.u_uuid,
             'u_create_datetime': json.dumps(self.u_create_datetime, cls=DateTimeEncoder),
             'u_queue_string': self.u_queue_string,
+            'u_set_size':self.u_set_size
             
 
 
