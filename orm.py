@@ -226,6 +226,7 @@ class AlgorithmRsCCDD(Base):
     u_uuid = Column(String(37), primary_key=True)
     u_setId	 = Column(Integer, primary_key=True)
     u_nodeId = Column(Integer, primary_key=True)
+    u_nodeName = Column(String(37))
     
     
 
@@ -252,6 +253,7 @@ class AlgorithmRsCCDD(Base):
             'u_uuid': self.u_uuid,
             'u_nodeId':self.u_nodeId,
             'u_setId': self.u_setId,
+            'u_nodeName':self.u_nodeName,
             
 
 
