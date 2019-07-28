@@ -628,7 +628,7 @@ def init_db(db_session):
                           par_desc='关系数量', par_value='0', par_type=1)
     db_session.add(systemPar)
     systemPar = SystemPar(par_code='polling_second',
-                          par_desc='Queue轮询间隔秒数', par_value='60', par_type=1)
+                          par_desc='Queue轮询间隔秒数', par_value='5', par_type=1)
     db_session.add(systemPar)
     if system_type=='UNIX':
         systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
