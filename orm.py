@@ -12,7 +12,7 @@ import json
 from python_common.common import DateTimeEncoder
 
 
-postgresql_conn_str = "postgresql+psycopg2://postgres:Wang1980@localhost:33133/test"
+postgresql_conn_str = "postgresql+psycopg2://xywl2019:Wang1980@localhost:33133/xywl2019"
 engine = create_engine(postgresql_conn_str, isolation_level = 'READ COMMITTED',pool_size=10)
 
 # mysql_conn_str='mysql+mysqldb://root:Wang1980@localhost:3306/mosr?charset=utf8mb4'
@@ -632,7 +632,7 @@ def init_db(db_session):
     db_session.add(systemPar)
     if system_type=='UNIX':
         systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
-                          par_value='/u01/cqaudit/software/neo4j-enterprise-3.5.6/', par_type=2)
+                          par_value='/home/xywl2019/mosrv_1/neo4j-enterprise-3.5.12/', par_type=2)
         db_session.add(systemPar)
     else:
         systemPar = SystemPar(par_code='import_neo4j_install_dir', par_desc='数据导入NEO4J安装目录',
